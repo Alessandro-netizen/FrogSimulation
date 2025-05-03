@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class FrogSimulation {
+    private int goalDistance;       
+    private int maxHops;            
+    private int hops;              
+    private int distance;           
+
+    public FrogSimulation(int dist, int numHops) {
+        goalDistance = dist;
+        maxHops = numHops;
+    }
+
+    private int hopDistance() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("How far?");
+        return s.nextInt();
+    }
+
+    public boolean simulate() {
+        hops = 0;
+        distance = 0;
+        while (hops < maxHops) {
+            distance += hopDistance();
+            hops++;
+
+            if (distance < 0) {
+                return false; 
+            }
+            if (distance >= goalDistance) {
+                return true; 
+            }
+        }
+        return false; 
+    }
+
+    public double runSimulations(int numSimulations) {
+        double successes = 0;
+        for (int i = 0; i < numSimulations; i++) {
+            if (simulate()) {
+                successes++;
+            }
+        }
+        return successes / numSimulations;
+    }
+}
